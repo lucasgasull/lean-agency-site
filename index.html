@@ -194,7 +194,7 @@ img { max-width: 100%; display: block; }
 .track { display: flex; align-items: center; gap: .18em; width: max-content; font-size: clamp(110px, 22vw, 380px); line-height: .9; letter-spacing: -0.06em; padding-left: var(--gl); will-change: transform; }
 .track .ph { flex: none; height: .78em; aspect-ratio: 16 / 9; background-size: cover; background-position: center; }
 .track .ph.w { aspect-ratio: 16 / 10; }
-.track .lg { flex: none; width: 2.2em; color: var(--lime); }
+.track .lg { flex: none; width: 2.2em; color: var(--ink); }
 .mani .note { padding-inline: var(--gl) var(--gr); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 15px; color: var(--mute-ink); }
 @media (max-width: 899px) { .mani .inner { height: auto; padding-block: 72px; } .track { width: auto; flex-wrap: wrap; font-size: clamp(64px, 18vw, 120px); padding-right: var(--gr); } .track .ph { height: .7em; } }
 
@@ -279,6 +279,8 @@ img { max-width: 100%; display: block; }
 .cgrid .lg.raw img { filter: grayscale(1) contrast(1.4); height: 54%; }
 .cgrid .lg.raw:hover img { filter: none; }
 .cgrid .lg:hover img { filter: none; transform: scale(1.06); }
+@media (max-width: 900px) { .cgrid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .cgrid { grid-template-columns: repeat(2, 1fr); } .cgrid div, .cgrid .you { padding: 10px; } .cgrid .you { font-size: 15px; } .cgrid .lg img { width: 66%; } }
 .creds { margin-top: clamp(64px, 8vw, 112px); display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
 .creds-h { display: grid; gap: 12px; align-content: start; }
 .creds-h .tag { color: var(--mute-ink); }
@@ -341,14 +343,10 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
 .foot .end { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--mute); font-size: 13px; }
 @media (max-width: 800px) { .foot .cols { grid-template-columns: 1fr 1fr; } }
 
-/* Modal de vídeo */
-.modal { position: fixed; inset: 0; z-index: 120; background: rgba(10,10,10,.92); display: grid; place-items: center; padding: max(20px, env(safe-area-inset-top, 0px)) var(--gr) 20px var(--gl); }
-.modal .box { width: min(1280px, 100%); display: grid; gap: 14px; }
-.modal .fr { aspect-ratio: 16 / 9; background: #000; }
-.modal iframe { width: 100%; height: 100%; border: 0; display: block; }
-.modal .bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.modal .close { all: unset; cursor: pointer; color: var(--lime); font-size: 15px; display: inline-flex; gap: 8px; align-items: center; }
-.modal .close:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+/* Vídeo tocando no próprio card */
+.pic iframe, .th iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; z-index: 2; }
+.pic.on .play, .th.on::after { display: none; }
+.pic.on, .film.on { cursor: default; }
 
 /* Revelação de linhas (só com JS) */
 .js .rv { overflow: hidden; }
@@ -540,21 +538,21 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
         <button type="button" id="c-pod" data-f="podcast" aria-pressed="false">Podcast <sup>2</sup></button>
       </div>
       <div class="fgrid" id="fgrid">
-        <button class="film" type="button" data-cat="campanha" data-yt="1F8HQs8I3Wo" data-title="A porta dos desesperados por diversão, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/1F8HQs8I3Wo/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>A porta dos desesperados por diversão</b><span>Betnacional · 2025</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="cKkfgfKd-ac" data-title="Jogo Limpo com Galvão e Tino, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/cKkfgfKd-ac/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Jogo Limpo com Galvão e Tino</b><span>Betnacional · 2025</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="zCRxs65NsqQ" data-title="Profetize, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/zCRxs65NsqQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Profetize</b><span>Betnacional · 2025</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="NsOtfeMiFL0" data-title="Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Vencedor</b><span>Betnacional · 2025</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="Hv26AEFlpNQ" data-title="Formiga: a minha cor, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Hv26AEFlpNQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Formiga: a minha cor</b><span>Pagbet · 2024</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="SjIpamcAHPY" data-title="Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/SjIpamcAHPY/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Cuida! Usa Becker</b><span>Becker · 2024</span></span></button>
-        <button class="film" type="button" data-cat="campanha" data-yt="ncCwSsCWpVg" data-title="Sr. Adalberto é acordado por Totoro, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ncCwSsCWpVg/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Sr. Adalberto é acordado por Totoro</b><span>Pagbet · 2023</span></span></button>
-        <button class="film" type="button" data-cat="evento" data-yt="4Y6knWRTHIM" data-title="Superbowl Pernambucano com Priscila Senna, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/4Y6knWRTHIM/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Superbowl Pernambucano com Priscila Senna</b><span>Betnacional · 2024</span></span></button>
-        <button class="film" type="button" data-cat="evento" data-yt="hOWKVE6pxsU" data-title="Tardezinha, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/hOWKVE6pxsU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Tardezinha</b><span>Betnacional · 2024</span></span></button>
-        <button class="film" type="button" data-cat="evento" data-yt="Enj0Ono4qjI" data-title="Feira BIS 2024, NSX Group" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Enj0Ono4qjI/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Feira BIS 2024</b><span>NSX Group · 2024</span></span></button>
-        <button class="film" type="button" data-cat="bastidor" data-yt="ilFdufwDbtU" data-title="Making of: Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ilFdufwDbtU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Vencedor</b><span>Betnacional · 2025</span></span></button>
-        <button class="film" type="button" data-cat="bastidor" data-yt="jaz3s2t3Pr4" data-title="Making of: Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/jaz3s2t3Pr4/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Cuida! Usa Becker</b><span>Becker · 2024</span></span></button>
-        <button class="film" type="button" data-cat="bastidor" data-yt="C_-7Du8yS3U" data-title="Making of: Paulinho Gogó, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/C_-7Du8yS3U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Paulinho Gogó</b><span>Pagbet · 2025</span></span></button>
-        <button class="film" type="button" data-cat="podcast" data-yt="9lqY1gG_dWc" data-title="Lean Podcast #2: Cannes Lions 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/9lqY1gG_dWc/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #2: Cannes Lions 2025</b><span>Lean Podcast · 2025</span></span></button>
-        <button class="film" type="button" data-cat="podcast" data-yt="unFide4Ag4U" data-title="Lean Podcast #1: SXSW 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/unFide4Ag4U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #1: SXSW 2025</b><span>Lean Podcast · 2025</span></span></button>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="1F8HQs8I3Wo" data-title="A porta dos desesperados por diversão, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/1F8HQs8I3Wo/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>A porta dos desesperados por diversão</b><span>Betnacional · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="cKkfgfKd-ac" data-title="Jogo Limpo com Galvão e Tino, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/cKkfgfKd-ac/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Jogo Limpo com Galvão e Tino</b><span>Betnacional · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="zCRxs65NsqQ" data-title="Profetize, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/zCRxs65NsqQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Profetize</b><span>Betnacional · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="NsOtfeMiFL0" data-title="Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Vencedor</b><span>Betnacional · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="Hv26AEFlpNQ" data-title="Formiga: a minha cor, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Hv26AEFlpNQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Formiga: a minha cor</b><span>Pagbet · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="SjIpamcAHPY" data-title="Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/SjIpamcAHPY/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Cuida! Usa Becker</b><span>Becker · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="campanha" data-yt="ncCwSsCWpVg" data-title="Sr. Adalberto é acordado por Totoro, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ncCwSsCWpVg/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Sr. Adalberto é acordado por Totoro</b><span>Pagbet · 2023</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="evento" data-yt="4Y6knWRTHIM" data-title="Superbowl Pernambucano com Priscila Senna, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/4Y6knWRTHIM/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Superbowl Pernambucano com Priscila Senna</b><span>Betnacional · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="evento" data-yt="hOWKVE6pxsU" data-title="Tardezinha, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/hOWKVE6pxsU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Tardezinha</b><span>Betnacional · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="evento" data-yt="Enj0Ono4qjI" data-title="Feira BIS 2024, NSX Group" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Enj0Ono4qjI/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Feira BIS 2024</b><span>NSX Group · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="bastidor" data-yt="ilFdufwDbtU" data-title="Making of: Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ilFdufwDbtU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Vencedor</b><span>Betnacional · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="bastidor" data-yt="jaz3s2t3Pr4" data-title="Making of: Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/jaz3s2t3Pr4/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Cuida! Usa Becker</b><span>Becker · 2024</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="bastidor" data-yt="C_-7Du8yS3U" data-title="Making of: Paulinho Gogó, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/C_-7Du8yS3U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Paulinho Gogó</b><span>Pagbet · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="podcast" data-yt="9lqY1gG_dWc" data-title="Lean Podcast #2: Cannes Lions 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/9lqY1gG_dWc/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #2: Cannes Lions 2025</b><span>Lean Podcast · 2025</span></span></div>
+        <div class="film" role="button" tabindex="0" data-cat="podcast" data-yt="unFide4Ag4U" data-title="Lean Podcast #1: SXSW 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/unFide4Ag4U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #1: SXSW 2025</b><span>Lean Podcast · 2025</span></span></div>
       </div>
       <a class="more" href="https://www.youtube.com/@leanagencybr/videos" target="_blank" rel="noopener">Ver todos os vídeos no canal da Lean <svg><use href="#arr"/></svg></a>
     </div>
@@ -663,12 +661,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
   </div>
 </footer>
 
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-t" hidden>
-  <div class="box">
-    <div class="bar"><span id="modal-t">Filme</span><button class="close" id="modal-x" type="button">Fechar <svg width="14" height="14"><use href="#plus"/></svg></button></div>
-    <div class="fr" id="modal-fr"></div>
-  </div>
-</div>
 
 <script>document.documentElement.classList.add('js');</script>
 <script src="js/gsap.min.js"></script>
@@ -803,26 +795,29 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
     addEventListener("mousemove", function (e) { x = e.clientX; y = e.clientY; });
     (function loop() { cx += (x - cx) * .2; cy += (y - cy) * .2; cu.style.transform = "translate(" + cx + "px," + cy + "px)"; requestAnimationFrame(loop); })();
     $$("[data-cursor]").forEach(function (el) {
-      el.addEventListener("mouseenter", function () { ct.textContent = el.dataset.cursor; cu.classList.add("big"); });
+      el.addEventListener("mouseenter", function () { if (el.classList.contains("on")) return; ct.textContent = el.dataset.cursor; cu.classList.add("big"); });
       el.addEventListener("mouseleave", function () { cu.classList.remove("big"); });
     });
   }
 
-  /* Vídeos */
-  var modal = $("#modal"), fr = $("#modal-fr"), last = null;
-  function openV(id, title) {
-    last = document.activeElement;
-    $("#modal-t").textContent = title || "Filme";
-    fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="' + (title || "Filme") + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-    modal.hidden = false; if (lenis) lenis.stop(); $("#modal-x").focus();
+  /* Vídeos: tocam no próprio card, sem abrir outra tela */
+  var playing = null;
+  function stopV() { if (!playing) return; playing.box.innerHTML = playing.html; playing.box.classList.remove("on"); playing.host.classList.remove("on"); playing = null; }
+  function playV(host) {
+    var box = host.classList.contains("film") ? host.querySelector(".th") : host;
+    if (playing && playing.box === box) return;
+    stopV();
+    var id = host.dataset.yt, t = host.dataset.title || "Filme";
+    playing = { box: box, host: host, html: box.innerHTML };
+    box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" title="' + t.replace(/"/g, "&quot;") + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    box.classList.add("on"); host.classList.add("on");
+    if (cu) cu.classList.remove("big");
   }
-  function closeV() { fr.innerHTML = ""; modal.hidden = true; if (lenis) lenis.start(); if (last) last.focus(); }
-  $$("[data-yt]").forEach(function (el) {
-    el.addEventListener("click", function (e) { e.stopPropagation(); openV(el.dataset.yt, el.dataset.title); });
+  $$(".card .pic[data-yt], .film[data-yt]").forEach(function (el) {
+    el.addEventListener("click", function (e) { e.stopPropagation(); playV(el); });
+    if (el.classList.contains("film")) el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); playV(el); } });
   });
-  $("#modal-x").addEventListener("click", closeV);
-  modal.addEventListener("click", function (e) { if (e.target === modal) closeV(); });
-  addEventListener("keydown", function (e) { if (e.key === "Escape" && !modal.hidden) closeV(); });
+  $$(".chips button").forEach(function (b) { b.addEventListener("click", stopV); });
 
   /* Barra do topo: fundo ao rolar, some ao descer e volta ao subir */
   var top = $(".top"), lastY = 0;
