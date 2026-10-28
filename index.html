@@ -271,7 +271,10 @@ img { max-width: 100%; display: block; }
 .cgrid div:hover { background: var(--ink); color: var(--lime); }
 .cgrid .you { border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--lime); color: var(--ink); text-decoration: none; font-size: clamp(18px, 1.5vw, 22px); letter-spacing: -0.02em; transition: background .3s, color .3s; }
 .cgrid .you:hover { background: var(--ink); color: var(--lime); }
-.cgrid .lg img { max-width: 62%; max-height: 46%; width: auto; height: auto; object-fit: contain; filter: brightness(0); transition: filter .3s, transform .5s var(--ease); }
+.cgrid .lg { overflow: hidden; }
+.cgrid .lg img { width: 58%; height: 42%; object-fit: contain; filter: brightness(0); transition: filter .3s, transform .5s var(--ease); }
+.cgrid .lg.inv img { filter: grayscale(1) invert(1); height: 64%; }
+.cgrid .lg.inv:hover img { filter: grayscale(1); }
 .cgrid .lg:hover img { filter: none; transform: scale(1.06); }
 .creds { margin-top: clamp(64px, 8vw, 112px); display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
 .creds-h { display: grid; gap: 12px; align-content: start; }
@@ -562,7 +565,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
       <div class="sec-head"><span class="tag">Quem confia</span><h2>Clientes</h2><p>Marcas de esporte, varejo, consumo e causas sociais que já trabalharam com a Lean.</p></div>
       <div class="cgrid">
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Betnacional.png" alt="Betnacional" loading="lazy" width="200" height="80"></div>
-        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Becker-1.png" alt="Becker" loading="lazy" width="200" height="80"></div>
+        <div class="lg inv"><img src="https://lean.ag/wp-content/uploads/2025/01/Becker-1.png" alt="Becker" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Maxplural.png" alt="MaxPlural" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/03/Logo-Bueno@3x-e1742581505830.png" alt="Bueno Wines" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Zro.png" alt="Z.ro Bank" loading="lazy" width="200" height="80"></div>
@@ -570,7 +573,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Camarada@4x.png" alt="Camarada Camarão" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Como-Registrar.png" alt="Como Registrar" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Naturemix@4x.png" alt="Naturemix" loading="lazy" width="200" height="80"></div>
-        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/America@4x-1.png" alt="América Futebol Clube" loading="lazy" width="200" height="80"></div>
+        <div class="lg inv"><img src="https://lean.ag/wp-content/uploads/2025/01/America@4x-1.png" alt="América Futebol Clube" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/CastFC.png" alt="Cast FC" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Movicidade.png" alt="Movicidade" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Fenix.png" alt="Fênix Consultoria Empresarial" loading="lazy" width="200" height="80"></div>
