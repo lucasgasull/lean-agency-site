@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lean Agency | Dados, criatividade e método</title>
+<meta name="description" content="Agência independente com sede em Recife e atuação nacional. Full-service: marca, mídia, conteúdo, influenciadores, promo, patrocínios e ESG.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Lean Agency">
+<meta property="og:description" content="Return Over Creativity. Dados, criatividade e método, de Recife para o Brasil.">
+<meta property="og:image" content="https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23cff200'/%3E%3Cpath d='M18 12h9v32h17v8H18z' fill='%230a0a0a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400&display=swap">
+<style>
+/* Lean v2: a campanha de rua em movimento. Preloader que conta até o dado, hero em tela cheia,
+   texto que acende com o scroll, manifesto que corre de lado, cases que empilham. */
+:root {
+  --ink: #0a0a0a; --ink-2: #141414; --paper: #f4f3ee; --lime: #cff200; --grey: #e6e6e6;
+  --white: #fff; --mute: #9a9a92; --mute-ink: #4d4d4d; --line: #2a2a2a; --line-light: #7c7b76;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif; --serif: "Playfair Display", Georgia, serif;
+  --gl: max(20px, env(safe-area-inset-left, 0px)); --gr: max(20px, env(safe-area-inset-right, 0px));
+  --ease: cubic-bezier(.7, 0, .2, 1);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body { background: var(--ink); color: var(--white); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+::selection { background: var(--lime); color: var(--ink); }
+.band { padding-left: var(--gl); padding-right: var(--gr); }
+.wrap { max-width: 1520px; margin-inline: auto; }
+.logo { display: block; width: 100%; height: auto; }
+.labels { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; line-height: 1.2; padding-bottom: 10px; border-bottom: 2px solid currentColor; }
+.labels > :last-child { text-align: right; }
+.tag { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.grain { position: absolute; inset: -50%; pointer-events: none; opacity: .09; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grain 1s steps(4) infinite; }
+@keyframes grain { 0% { transform: translate(0,0) } 25% { transform: translate(-3%,2%) } 50% { transform: translate(2%,-3%) } 75% { transform: translate(-2%,-2%) } 100% { transform: translate(0,0) } }
+
+/* Preloader */
+.loader { position: fixed; inset: 0; z-index: 100; background: var(--ink); color: var(--white); display: none; }
+.js-load .loader { display: block; }
+.loader .lb { position: absolute; left: var(--gl); right: var(--gr); bottom: max(24px, env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; }
+.loader .count { font-weight: 300; font-size: clamp(110px, 22vw, 360px); line-height: .8; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+.loader .bar { height: 2px; background: var(--line); position: relative; overflow: hidden; }
+.loader .bar i { position: absolute; inset: 0; background: var(--lime); transform-origin: left; transform: scaleX(0); }
+.loader .row { display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); }
+
+/* Cursor */
+.cursor { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--lime); display: none; align-items: center; justify-content: center; color: var(--ink); font-size: 13px; font-weight: 500; transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease); mix-blend-mode: normal; }
+.cursor span { opacity: 0; transition: opacity .2s; white-space: nowrap; }
+.cursor.big { width: 104px; height: 104px; margin: -52px 0 0 -52px; }
+.cursor.big span { opacity: 1; }
+@media (pointer: fine) { .has-cursor .cursor { display: flex; } }
+
+/* Header */
+.top { position: fixed; top: 0; left: 0; right: 0; z-index: 60; padding-top: env(safe-area-inset-top, 0px); color: var(--white); background: transparent; border-bottom: 1px solid transparent; transition: background .4s, border-color .4s, transform .5s var(--ease); }
+.top.scrolled { background: rgba(10,10,10,.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+.top.hide { transform: translateY(-100%); }
+.top .brand { color: var(--lime); }
+.top .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; height: 68px; }
+.top .brand { width: 84px; display: block; }
+.top .mid { display: flex; gap: 28px; font-size: 13px; opacity: .85; }
+.top .mid time { font-variant-numeric: tabular-nums; }
+.top .right { justify-self: end; display: flex; align-items: center; gap: 28px; }
+.top .talk { font-size: 14px; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; }
+.top .talk::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.menu-btn { all: unset; cursor: pointer; white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 12px; font-size: 14px; padding: 8px 0; }
+.menu-btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+.mb-i { width: 28px; height: 10px; position: relative; display: block; }
+.mb-i i { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; transition: transform .5s var(--ease), top .5s var(--ease); }
+.mb-i i:first-child { top: 0; } .mb-i i:last-child { top: 8px; }
+.menu-open .mb-i i:first-child { top: 4px; transform: rotate(45deg); }
+.menu-open .mb-i i:last-child { top: 4px; transform: rotate(-45deg); }
+@media (max-width: 800px) { .top .wrap { grid-template-columns: auto 1fr; } .top .mid { display: none; } .top .talk { display: none; } }
+
+.menu-open .top { background: transparent; border-bottom-color: transparent; transform: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.menu-open .top .brand { color: var(--lime); }
+
+/* Menu em tela cheia: preto, verde e o LEAN gigante */
+.menu { position: fixed; inset: 0; z-index: 55; background: var(--ink); color: var(--white); overflow-y: auto; overflow-x: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .8s var(--ease); }
+.menu.open { clip-path: inset(0 0 0 0); }
+.menu-in { min-height: 100%; padding-block: calc(84px + env(safe-area-inset-top, 0px)) 0; display: flex; }
+.menu .wrap { width: 100%; display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: auto 1fr auto auto; gap: 24px 56px; }
+.mtop { grid-column: 1 / -1; color: var(--lime); }
+.mlist { display: grid; align-content: center; }
+.mlist a { display: grid; grid-template-columns: 40px 1fr auto; align-items: baseline; gap: 16px; text-decoration: none; border-bottom: 1px solid var(--line); padding: 4px 0; color: var(--white); transition: color .35s; }
+.mlist a:first-child { border-top: 1px solid var(--line); }
+.mlist small { font-size: 13px; color: var(--mute); transition: color .35s; }
+.mlist .lt { font-size: clamp(44px, 6vw, 104px); line-height: 1; letter-spacing: -0.055em; display: inline-block; transition: transform .6s var(--ease); }
+.mlist em { font-style: normal; font-size: 13px; color: var(--mute); transition: color .35s; }
+.mlist a:hover, .mlist a:focus-visible { color: var(--lime); outline: none; }
+.mlist a:hover small, .mlist a:hover em, .mlist a:focus-visible small, .mlist a:focus-visible em { color: var(--lime); }
+.mlist a:hover .lt, .mlist a:focus-visible .lt { transform: translateX(20px); }
+.mprev { position: relative; align-self: center; aspect-ratio: 16 / 9; width: 100%; overflow: hidden; background: var(--ink-2); outline: 2px solid var(--lime); outline-offset: 8px; }
+.mprev-im { position: absolute; inset: 0; background-size: cover; background-position: center; transition: opacity .4s, transform 1.2s var(--ease); }
+.mprev-tag { position: absolute; left: 0; bottom: 0; background: var(--lime); color: var(--ink); font-size: 13px; font-weight: 500; padding: 8px 12px; }
+.mfoot { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 15px; color: var(--mute); }
+.mfoot b { display: block; color: var(--white); font-weight: 500; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+.mfoot a, .mfoot span { display: block; text-decoration: none; }
+.mfoot a:hover { color: var(--lime); }
+.mlogo { grid-column: 1 / -1; color: var(--lime); margin-bottom: -2.4vw; }
+.js .menu .mlist a, .js .menu .mlogo { transform: translateY(40px); opacity: 0; transition: transform .8s var(--ease), opacity .8s var(--ease), color .35s; }
+.js .menu .mlogo { transform: translateY(60%); }
+.js .menu.open .mlist a, .js .menu.open .mlogo { transform: none; opacity: 1; }
+.menu.open .mlist a:nth-child(2) { transition-delay: .05s; } .menu.open .mlist a:nth-child(3) { transition-delay: .1s; }
+.menu.open .mlist a:nth-child(4) { transition-delay: .15s; } .menu.open .mlist a:nth-child(5) { transition-delay: .2s; }
+.menu.open .mlogo { transition-delay: .25s; }
+.menu.open .mlist a:hover { transition-delay: 0s; }
+@media (max-width: 860px) { .menu .wrap { grid-template-columns: 1fr; } .mprev { display: none; } .mlist em { display: none; } .mlist a { grid-template-columns: 32px 1fr; } }
+@media (prefers-reduced-motion: reduce) { .menu { transition: none; } .js .menu .mlist a, .js .menu .mlogo { transition: none; transform: none; opacity: 1; } }
+
+/* Filtros de filmes */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.chips button { all: unset; cursor: pointer; font-size: 14px; padding: 9px 16px; border: 1px solid var(--line-light); border-radius: 999px; color: var(--white); transition: background .3s, color .3s, border-color .3s; }
+.chips button sup { font-size: 10px; color: var(--mute); margin-left: 2px; }
+.chips button:hover { border-color: var(--lime); }
+.chips button[aria-pressed="true"] { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.chips button[aria-pressed="true"] sup { color: var(--ink); }
+.chips button:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+.more { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; font-size: 16px; text-decoration: none; border-bottom: 1px solid var(--lime); padding-bottom: 4px; color: var(--lime); }
+.more svg { width: 14px; height: 14px; }
+
+/* Hero */
+.hero { position: relative; min-height: 100svh; overflow: hidden; color: var(--lime); display: flex; align-items: flex-end; }
+.hero .media { position: absolute; inset: 0; overflow: hidden; }
+.hero .bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; opacity: 0; transform: scale(1.12); transition: opacity 1.2s ease, transform 7s linear; }
+.hero .bg.on { opacity: 1; transform: scale(1.02); }
+.hero .media::after { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.34); }
+.hero .wrap { position: relative; z-index: 2; width: 100%; display: grid; gap: clamp(24px, 4vw, 48px); padding-block: 96px 0; min-height: 100svh; align-content: space-between; }
+.hero .labels.t { margin-bottom: auto; }
+.stat { color: var(--white); font-weight: 300; margin: 0; }
+.stat .pre, .stat .post { display: block; font-size: clamp(24px, 3.2vw, 52px); line-height: 1.05; letter-spacing: -0.025em; overflow: hidden; }
+.stat .num { display: block; font-size: clamp(120px, 23vw, 400px); line-height: .84; letter-spacing: -0.06em; margin: .03em 0 .05em -0.045em; font-variant-numeric: tabular-nums; overflow: hidden; }
+.stat .in { display: inline-block; }
+.hero-ctrl { display: grid; gap: 14px; }
+.bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bars button { all: unset; cursor: pointer; display: grid; gap: 8px; color: var(--white); font-size: 13px; }
+.bars button:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+.bars .tr { height: 2px; background: rgba(255,255,255,.28); position: relative; overflow: hidden; }
+.bars .tr i { position: absolute; inset: 0; background: var(--lime); transform: scaleX(0); transform-origin: left; }
+.bars button[aria-pressed="true"] .tr i { animation: fill 6s linear forwards; }
+.bars button.done .tr i { transform: scaleX(1); }
+.still .bars button[aria-pressed="true"] .tr i { animation: none; transform: scaleX(1); }
+@keyframes fill { to { transform: scaleX(1); } }
+.bars button span { opacity: .65; transition: opacity .3s; }
+.bars button[aria-pressed="true"] span { opacity: 1; }
+.hero .big-logo { margin-bottom: -2.2vw; }
+
+/* Ticker */
+.ticker { background: var(--lime); color: var(--ink); overflow: hidden; }
+.ticker .row { display: flex; width: max-content; animation: run 30s linear infinite; }
+.ticker span { font-size: clamp(30px, 4.4vw, 64px); letter-spacing: -0.035em; padding: 12px 0; display: flex; align-items: center; gap: .55em; padding-right: .55em; white-space: nowrap; }
+.ticker svg { width: .5em; height: .5em; }
+@keyframes run { to { transform: translateX(-50%); } }
+
+/* Statement */
+.statement { padding-block: clamp(96px, 14vw, 200px); }
+.statement .wrap { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+.statement .tag { color: var(--mute); padding-top: 14px; }
+.say { margin: 0; font-size: clamp(36px, 5.6vw, 92px); line-height: 1.02; letter-spacing: -0.045em; font-weight: 400; text-wrap: balance; }
+.say em { font-family: var(--serif); letter-spacing: -0.02em; color: var(--lime); }
+.say .pic { display: inline-block; height: .78em; width: 1.39em; vertical-align: -.06em; background-size: cover; background-position: center; border-radius: 999px; }
+.pillars { grid-column: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(48px, 7vw, 96px); border-top: 1px solid var(--line); }
+.pillars div { padding: 20px 24px 0 0; display: grid; gap: 10px; }
+.pillars b { font-weight: 300; font-size: clamp(44px, 4.6vw, 72px); letter-spacing: -0.05em; line-height: 1; color: var(--lime); }
+.pillars span { color: var(--mute); max-width: 30ch; }
+@media (max-width: 900px) { .statement .wrap { grid-template-columns: 1fr; } .pillars { grid-column: 1; grid-template-columns: 1fr; } .pillars div { padding: 20px 0; border-bottom: 1px solid var(--line); } }
+
+/* Manifesto horizontal */
+.mani { background: var(--grey); color: var(--ink); overflow: hidden; position: relative; }
+.mani .inner { height: 100svh; min-height: 560px; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+.mani .labels { margin-inline: var(--gl) var(--gr); color: var(--ink); }
+.track { display: flex; align-items: center; gap: .18em; width: max-content; font-size: clamp(110px, 22vw, 380px); line-height: .9; letter-spacing: -0.06em; padding-left: var(--gl); will-change: transform; }
+.track .ph { flex: none; height: .78em; aspect-ratio: 16 / 9; background-size: cover; background-position: center; }
+.track .ph.w { aspect-ratio: 16 / 10; }
+.track .lg { flex: none; width: 2.2em; color: var(--lime); }
+.mani .note { padding-inline: var(--gl) var(--gr); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 15px; color: var(--mute-ink); }
+@media (max-width: 899px) { .mani .inner { height: auto; padding-block: 72px; } .track { width: auto; flex-wrap: wrap; font-size: clamp(64px, 18vw, 120px); padding-right: var(--gr); } .track .ph { height: .7em; } }
+
+/* Cases */
+.cases { padding-block: clamp(96px, 12vw, 160px) 40px; }
+.sec-head { display: grid; grid-template-columns: 220px 1fr auto; gap: 32px; align-items: end; margin-bottom: clamp(40px, 6vw, 80px); }
+.sec-head .tag { color: var(--mute); }
+.sec-head h2 { margin: 0; font-size: clamp(56px, 9vw, 150px); line-height: .9; letter-spacing: -0.055em; font-weight: 400; }
+.sec-head p { margin: 0; color: var(--mute); max-width: 34ch; }
+@media (max-width: 900px) { .sec-head { grid-template-columns: 1fr; gap: 12px; } }
+.stack { display: grid; gap: 24px; }
+.card { position: sticky; top: 88px; background: var(--ink-2); border: 1px solid var(--line); display: grid; grid-template-columns: 1.5fr 1fr; align-items: start; transform-origin: center top; }
+.card .pic { position: relative; overflow: hidden; background: #000; cursor: pointer; aspect-ratio: 16 / 9; }
+.card .pic .im { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 1.2s var(--ease); }
+.card:hover .pic .im { transform: scale(1.05); }
+.card .play { position: absolute; left: 20px; bottom: 20px; display: inline-flex; align-items: center; gap: 10px; background: var(--lime); color: var(--ink); border: 0; font: inherit; font-size: 14px; font-weight: 500; padding: 10px 14px; cursor: pointer; }
+.card .play svg { width: 12px; height: 12px; }
+.card .txt { align-self: stretch; padding: clamp(24px, 3vw, 48px); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-width: 0; }
+.card .meta { display: flex; justify-content: space-between; gap: 16px; color: var(--mute); font-size: 13px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.card .kick { font-family: var(--serif); font-style: italic; font-size: clamp(24px, 2.4vw, 36px); line-height: 1.1; }
+.card h3 { margin: 4px 0 0; font-size: clamp(36px, 4vw, 64px); font-weight: 400; letter-spacing: -0.045em; line-height: 1; }
+.card .res { display: grid; gap: 4px; }
+.card .res .p { color: var(--mute); font-size: 16px; }
+.card .res .n { color: var(--lime); font-weight: 300; font-size: clamp(96px, 11vw, 200px); line-height: .82; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+.card .res .l { font-weight: 300; font-size: clamp(18px, 1.6vw, 24px); }
+@media (max-width: 900px) { .card { position: relative; top: 0; grid-template-columns: 1fr; } }
+
+/* Filmes */
+.films { padding-block: clamp(96px, 12vw, 160px); }
+.fgrid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px 20px; grid-auto-flow: dense; align-items: start; }
+.film { all: unset; cursor: pointer; display: grid; gap: 12px; grid-column: span 4; }
+.film.feat { grid-column: span 8; grid-row: span 2; align-self: start; }
+.film:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+.film .th { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--ink-2); }
+.film.feat .th { aspect-ratio: 16 / 9; }
+.film img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), filter .6s; filter: grayscale(.35); }
+.film:hover img { transform: scale(1.05); filter: grayscale(0); }
+.film .th::after { content: ""; position: absolute; right: 14px; bottom: 14px; width: 44px; height: 44px; border-radius: 50%; background: var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%230a0a0a'/%3E%3C/svg%3E") center / 22px no-repeat; transform: scale(.85); transition: transform .4s var(--ease); }
+.film:hover .th::after { transform: scale(1); }
+.film .ft { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; line-height: 1.3; }
+.film .ft b { font-weight: 400; }
+.film .ft span { color: var(--mute); white-space: nowrap; }
+.film.feat .ft b { font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.02em; }
+@media (max-width: 900px) { .film, .film.feat { grid-column: span 12; grid-row: auto; } .film.feat .th { aspect-ratio: 16 / 9; height: auto; min-height: 0; } }
+@media (min-width: 560px) and (max-width: 900px) { .film { grid-column: span 6; } }
+
+/* Clientes */
+.clients { background: var(--paper); color: var(--ink); padding-block: clamp(96px, 12vw, 160px); }
+.clients .sec-head .tag, .clients .sec-head p { color: var(--mute-ink); }
+.cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--line-light); }
+.cgrid div { border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 16px; text-align: center; font-size: clamp(20px, 1.8vw, 28px); letter-spacing: -0.03em; transition: background .3s, color .3s; position: relative; }
+.cgrid div:hover { background: var(--ink); color: var(--lime); }
+.seals { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 32px; color: var(--mute-ink); font-size: 14px; align-items: center; }
+.seals b { font-weight: 500; color: var(--ink); }
+
+/* Serviços */
+.services { padding-block: clamp(96px, 12vw, 160px); }
+.svc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); counter-reset: s; }
+.svc li { position: relative; display: grid; grid-template-columns: 220px 1fr minmax(0, 380px); gap: 32px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); overflow: hidden; }
+.svc li::before { content: ""; position: absolute; inset: 0; background: var(--lime); transform: translateY(101%); transition: transform .5s var(--ease); z-index: 0; }
+.svc li:hover::before { transform: translateY(0); }
+.svc li > * { position: relative; z-index: 1; transition: color .3s; }
+.svc li:hover > * { color: var(--ink); }
+.svc .k { color: var(--mute); font-size: 13px; }
+.svc h3 { margin: 0; font-size: clamp(40px, 6vw, 104px); font-weight: 400; letter-spacing: -0.055em; line-height: .95; }
+.svc p { margin: 0; color: var(--mute); font-size: 17px; }
+@media (max-width: 900px) { .svc li { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Contato */
+.contact { background: var(--lime); color: var(--ink); padding-block: clamp(80px, 10vw, 140px); position: relative; overflow: hidden; }
+.contact .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 6vw, 112px); }
+.contact h2 { margin: 0 0 40px; font-size: clamp(64px, 10vw, 176px); line-height: .88; letter-spacing: -0.06em; font-weight: 400; }
+.contact h2 em { font-family: var(--serif); letter-spacing: -0.035em; }
+.info { margin: 0; border-top: 1px solid var(--ink); }
+.info div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid rgba(10,10,10,.3); font-size: 18px; }
+.info dt { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; padding-top: 5px; }
+.info dd { margin: 0; }
+.info a { text-decoration: none; border-bottom: 1px solid; }
+form { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+label { display: grid; gap: 4px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+input, select, textarea { font: inherit; font-size: 20px; letter-spacing: -0.01em; text-transform: none; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 10px 0; border-radius: 0; width: 100%; }
+input::placeholder, textarea::placeholder { color: rgba(10,10,10,.45); }
+select { appearance: none; cursor: pointer; background: linear-gradient(45deg, transparent 50%, var(--ink) 50%) calc(100% - 12px) 55% / 6px 6px no-repeat, linear-gradient(135deg, var(--ink) 50%, transparent 50%) calc(100% - 6px) 55% / 6px 6px no-repeat; }
+textarea { min-height: 110px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px solid var(--ink); }
+.send { justify-self: start; display: inline-flex; align-items: center; gap: 14px; background: var(--ink); color: var(--lime); border: 0; font: inherit; font-size: 17px; font-weight: 500; padding: 18px 26px; cursor: pointer; transition: background .3s, color .3s; }
+.send:hover { background: var(--white); color: var(--ink); }
+.send svg { width: 16px; height: 16px; }
+.msg { margin: 0; font-size: 16px; min-height: 1.5em; }
+.wa { display: inline-flex; gap: 10px; align-items: center; font-size: 15px; }
+@media (max-width: 900px) { .contact .wrap { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .f2 { grid-template-columns: 1fr; } .info div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Rodapé */
+.foot { padding-block: 48px max(24px, env(safe-area-inset-bottom, 0px)); color: var(--lime); overflow: hidden; }
+.foot .wrap { display: grid; gap: 32px; }
+.foot .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; color: var(--mute); font-size: 14px; }
+.foot .cols b { display: block; color: var(--white); font-weight: 400; margin-bottom: 8px; }
+.foot .cols a { text-decoration: none; display: block; }
+.foot .cols a:hover { color: var(--lime); }
+.foot .end { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--mute); font-size: 13px; }
+@media (max-width: 800px) { .foot .cols { grid-template-columns: 1fr 1fr; } }
+
+/* Modal de vídeo */
+.modal { position: fixed; inset: 0; z-index: 120; background: rgba(10,10,10,.92); display: grid; place-items: center; padding: max(20px, env(safe-area-inset-top, 0px)) var(--gr) 20px var(--gl); }
+.modal .box { width: min(1280px, 100%); display: grid; gap: 14px; }
+.modal .fr { aspect-ratio: 16 / 9; background: #000; }
+.modal iframe { width: 100%; height: 100%; border: 0; display: block; }
+.modal .bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.modal .close { all: unset; cursor: pointer; color: var(--lime); font-size: 15px; display: inline-flex; gap: 8px; align-items: center; }
+.modal .close:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+
+/* Revelação de linhas (só com JS) */
+.js .rv { overflow: hidden; }
+.js .rv > .in { display: inline-block; transform: translateY(105%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker .row, .grain { animation: none; }
+  .hero .bg { transition: opacity .3s; transform: none !important; }
+  .js .rv > .in { transform: none; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="lean" viewBox="686 564 253 101"><path fill-rule="nonzero" fill="currentColor" d="M 845.675781 614.5 L 845.675781 569.8125 C 845.675781 569.332031 845.671875 568.851562 845.675781 568.371094 C 845.707031 564.96875 846.582031 564.070312 849.917969 564.039062 C 851.84375 564.023438 853.769531 564.035156 855.695312 564.039062 C 859.585938 564.042969 860.484375 564.660156 861.976562 568.3125 C 866.800781 580.128906 871.628906 591.941406 876.457031 603.757812 C 876.667969 604.273438 876.84375 604.8125 877.109375 605.300781 C 877.53125 606.082031 878.207031 606.464844 879.105469 606.285156 C 880.058594 606.097656 880.382812 605.433594 880.347656 604.519531 C 880.328125 603.960938 880.34375 603.398438 880.34375 602.835938 C 880.34375 591.625 880.34375 580.414062 880.34375 569.199219 C 880.34375 568.640625 880.320312 568.078125 880.351562 567.519531 C 880.488281 565.140625 881.40625 564.117188 883.757812 564.0625 C 887.285156 563.980469 890.820312 563.976562 894.347656 564.066406 C 896.566406 564.121094 897.5 565.152344 897.667969 567.363281 C 897.710938 567.921875 897.679688 568.484375 897.679688 569.042969 C 897.679688 599.316406 897.652344 629.589844 897.710938 659.863281 C 897.71875 664.226562 896.597656 665.148438 892.519531 664.976562 C 890.675781 664.902344 888.828125 664.980469 886.980469 664.960938 C 883.835938 664.925781 882.683594 664.117188 881.699219 661.140625 C 876.746094 646.15625 871.804688 631.167969 866.859375 616.183594 C 866.660156 615.578125 866.484375 614.953125 866.199219 614.390625 C 865.769531 613.542969 864.984375 613.414062 864.132812 613.574219 C 863.257812 613.738281 863 614.359375 863.011719 615.164062 C 863.019531 615.726562 863.011719 616.285156 863.011719 616.84375 C 863.011719 631.261719 863.011719 645.675781 863.007812 660.09375 C 863.007812 664.226562 862.265625 664.960938 858.101562 664.964844 C 855.375 664.964844 852.644531 664.980469 849.917969 664.960938 C 846.574219 664.9375 845.679688 664.039062 845.679688 660.632812 C 845.671875 645.253906 845.675781 629.878906 845.675781 614.5 "/><path fill-rule="nonzero" fill="currentColor" d="M 812.070312 630.839844 C 812.628906 630.839844 813.191406 630.84375 813.753906 630.839844 C 816.621094 630.8125 817.453125 629.953125 817.207031 627.027344 C 816.90625 623.449219 816.515625 619.878906 816.160156 616.304688 C 815.714844 611.859375 815.28125 607.414062 814.820312 602.96875 C 814.535156 600.191406 814.199219 597.417969 813.898438 594.640625 C 813.792969 593.65625 813.414062 592.945312 812.316406 592.890625 C 811.351562 592.84375 810.710938 593.503906 810.550781 594.757812 C 810.367188 596.183594 810.210938 597.609375 810.078125 599.039062 C 809.710938 603.015625 809.398438 606.992188 808.996094 610.964844 C 808.441406 616.441406 807.828125 621.910156 807.242188 627.386719 C 807.214844 627.621094 807.203125 627.867188 807.214844 628.105469 C 807.304688 629.8125 808.199219 630.734375 809.90625 630.832031 C 810.625 630.871094 811.347656 630.839844 812.070312 630.839844 M 812.28125 564.035156 C 815.328125 564.035156 818.375 564.019531 821.421875 564.042969 C 824.554688 564.070312 825.570312 564.996094 825.980469 568.035156 C 827.066406 576.101562 828.195312 584.160156 829.25 592.230469 C 830.132812 598.953125 830.902344 605.691406 831.777344 612.417969 C 832.652344 619.140625 833.632812 625.851562 834.515625 632.574219 C 835.238281 638.109375 835.871094 643.660156 836.578125 649.199219 C 837.105469 653.316406 837.660156 657.425781 838.25 661.53125 C 838.558594 663.699219 837.859375 664.851562 835.703125 664.917969 C 831.855469 665.035156 828.003906 665.019531 824.15625 664.917969 C 822.167969 664.863281 821.285156 664.035156 820.910156 662.027344 C 820.542969 660.070312 820.394531 658.074219 820.15625 656.09375 C 819.839844 653.480469 819.578125 650.855469 819.199219 648.25 C 818.890625 646.117188 817.964844 645.3125 815.871094 645.269531 C 813.464844 645.226562 811.058594 645.226562 808.652344 645.269531 C 806.585938 645.308594 805.5 646.234375 805.253906 648.222656 C 804.730469 652.5 804.242188 656.78125 803.796875 661.070312 C 803.507812 663.828125 802.453125 664.914062 799.648438 664.953125 C 796.28125 665 792.910156 664.964844 789.542969 664.960938 C 789.222656 664.960938 788.898438 664.972656 788.582031 664.925781 C 786.808594 664.65625 786.171875 663.984375 786.300781 662.191406 C 786.464844 659.882812 786.746094 657.582031 787.035156 655.285156 C 787.621094 650.613281 788.238281 645.949219 788.863281 641.285156 C 789.441406 637.015625 790.074219 632.753906 790.632812 628.484375 C 791.195312 624.210938 791.679688 619.929688 792.234375 615.65625 C 792.785156 611.386719 793.394531 607.121094 793.960938 602.851562 C 794.515625 598.65625 795.035156 594.460938 795.582031 590.269531 C 796.164062 585.839844 796.757812 581.414062 797.339844 576.984375 C 797.722656 574.054688 798.199219 571.136719 798.441406 568.195312 C 798.703125 564.949219 800.484375 564 802.898438 564.027344 C 806.027344 564.066406 809.152344 564.035156 812.28125 564.035156 "/><path fill-rule="nonzero" fill="currentColor" d="M 757.570312 564.035156 C 763.023438 564.035156 768.476562 564.035156 773.933594 564.039062 C 774.492188 564.039062 775.058594 564.003906 775.617188 564.0625 C 777.78125 564.277344 778.609375 565.097656 778.664062 567.296875 C 778.734375 569.9375 778.738281 572.582031 778.664062 575.222656 C 778.605469 577.484375 777.703125 578.367188 775.359375 578.433594 C 772.550781 578.511719 769.742188 578.453125 766.9375 578.453125 C 763.648438 578.457031 760.359375 578.4375 757.070312 578.460938 C 754.640625 578.480469 753.71875 579.371094 753.710938 581.757812 C 753.691406 588.882812 753.691406 596.007812 753.714844 603.132812 C 753.722656 605.40625 754.632812 606.304688 756.925781 606.320312 C 761.015625 606.351562 765.105469 606.328125 769.199219 606.328125 C 769.757812 606.328125 770.320312 606.308594 770.882812 606.335938 C 773.445312 606.472656 774.296875 607.324219 774.339844 609.910156 C 774.378906 612.3125 774.378906 614.714844 774.339844 617.113281 C 774.300781 619.820312 773.445312 620.707031 770.703125 620.734375 C 766.210938 620.78125 761.71875 620.71875 757.230469 620.773438 C 756.394531 620.785156 755.484375 620.996094 754.746094 621.382812 C 753.929688 621.808594 753.695312 622.703125 753.699219 623.65625 C 753.714844 631.660156 753.683594 639.667969 753.722656 647.671875 C 753.734375 649.664062 754.78125 650.53125 757.015625 650.539062 C 762.707031 650.558594 768.402344 650.542969 774.097656 650.550781 C 774.820312 650.550781 775.554688 650.53125 776.253906 650.671875 C 777.820312 650.976562 778.566406 651.671875 778.625 653.253906 C 778.738281 656.210938 778.738281 659.179688 778.644531 662.136719 C 778.589844 663.820312 777.796875 664.578125 776.140625 664.867188 C 775.4375 664.988281 774.703125 664.960938 773.984375 664.960938 C 762.996094 664.964844 752.003906 664.964844 741.015625 664.964844 C 740.617188 664.964844 740.210938 664.980469 739.8125 664.957031 C 737.265625 664.816406 736.390625 663.941406 736.378906 661.363281 C 736.351562 656 736.371094 650.636719 736.371094 645.269531 C 736.371094 619.730469 736.371094 594.191406 736.371094 568.652344 C 736.371094 564.722656 737.039062 564.042969 740.964844 564.039062 C 746.5 564.03125 752.035156 564.035156 757.570312 564.035156 "/><path fill-rule="nonzero" fill="currentColor" d="M 686.292969 614.511719 C 686.292969 599.296875 686.289062 584.085938 686.292969 568.875 C 686.292969 564.769531 687.042969 564.039062 691.230469 564.039062 C 693.957031 564.035156 696.6875 564.019531 699.414062 564.039062 C 702.65625 564.066406 703.597656 564.976562 703.621094 568.160156 C 703.644531 572.003906 703.625 575.847656 703.625 579.691406 L 703.625 645.5 C 703.625 645.980469 703.621094 646.460938 703.628906 646.941406 C 703.65625 649.707031 704.445312 650.53125 707.160156 650.539062 C 712.617188 650.558594 718.070312 650.542969 723.527344 650.546875 C 727.941406 650.546875 728.601562 651.222656 728.605469 655.734375 C 728.605469 657.496094 728.636719 659.257812 728.597656 661.015625 C 728.527344 663.980469 727.605469 664.949219 724.695312 664.953125 C 713.222656 664.976562 701.753906 664.976562 690.28125 664.953125 C 687.179688 664.949219 686.296875 663.960938 686.296875 660.625 C 686.285156 645.253906 686.292969 629.882812 686.292969 614.511719 "/><path fill-rule="nonzero" fill="currentColor" d="M 923.535156 575.695312 L 922.039062 575.695312 L 922.039062 578.25 L 923.535156 578.25 C 923.953125 578.261719 924.285156 578.160156 924.527344 577.933594 C 924.769531 577.710938 924.890625 577.398438 924.890625 576.992188 C 924.890625 576.585938 924.769531 576.265625 924.527344 576.039062 C 924.285156 575.808594 923.953125 575.695312 923.535156 575.695312 M 929.410156 585.835938 L 925.207031 585.835938 L 923.023438 581.511719 L 922.039062 581.511719 L 922.039062 585.835938 L 918.109375 585.835938 L 918.109375 572.078125 L 923.613281 572.078125 C 925.105469 572.078125 926.351562 572.523438 927.347656 573.414062 C 928.332031 574.292969 928.820312 575.457031 928.820312 576.914062 C 928.820312 577.726562 928.632812 578.460938 928.261719 579.113281 C 927.886719 579.769531 927.367188 580.300781 926.699219 580.707031 Z M 929.410156 585.835938 "/><path fill-rule="nonzero" fill="currentColor" d="M 912.597656 579.011719 C 912.539062 585.332031 916.753906 589.625 923.101562 589.707031 C 929.5625 589.796875 933.855469 585.621094 933.90625 579.207031 C 933.957031 572.753906 929.648438 568.277344 923.285156 568.285156 C 917.800781 568.292969 912.449219 572 912.597656 579.011719 M 938.691406 579.082031 C 939.054688 587.265625 932.828125 594.097656 923.253906 594.132812 C 914.523438 594.160156 907.851562 587.90625 907.804688 579.691406 C 907.753906 570.375 913.867188 564.0625 922.917969 564 C 932.488281 563.933594 938.980469 570.335938 938.691406 579.082031 "/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 19L19 5M8 5h11v11" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="lb">
+    <div class="row"><span>The Lean Way</span><span>Return Over Creativity</span></div>
+    <div class="count"><span id="cnt">000</span>%</div>
+    <div class="bar"><i id="lbar"></i></div>
+    <div class="row"><span>Carregando dados, criatividade e método</span><span>Recife, BR</span></div>
+  </div>
+</div>
+<div class="cursor" id="cursor" aria-hidden="true"><span id="cursor-t">Ver</span></div>
+
+<header class="top band">
+  <div class="wrap">
+    <a href="#inicio" class="brand" aria-label="Lean Agency, início"><svg class="logo" viewBox="0 0 253 101"><use href="#lean"/></svg></a>
+    <div class="mid"><span>Agência independente</span><span>Recife, <time id="clock">--:--</time></span></div>
+    <div class="right">
+      <a class="talk" href="#contato">Vamos conversar</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="mb-t">Menu</span><span class="mb-i" aria-hidden="true"><i></i><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <div class="menu-in band">
+    <div class="wrap">
+      <div class="labels mtop"><span>The Lean Way</span><span>Return Over Creativity</span></div>
+      <nav class="mlist" aria-label="Menu principal">
+        <a href="#cases" data-img="https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg"><small>01</small><span class="lt">Cases</span><em>3 cases de 2026</em></a>
+        <a href="#filmes" data-img="https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg"><small>02</small><span class="lt">Filmes</span><em>15 filmes</em></a>
+        <a href="#clientes" data-img="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg"><small>03</small><span class="lt">Clientes</span><em>16 marcas</em></a>
+        <a href="#servicos" data-img="https://i.ytimg.com/vi/4Y6knWRTHIM/maxresdefault.jpg"><small>04</small><span class="lt">Serviços</span><em>7 frentes</em></a>
+        <a href="#contato" data-img="https://i.ytimg.com/vi/L9JB22cZohc/maxresdefault.jpg"><small>05</small><span class="lt">Contato</span><em>Recife, PE</em></a>
+      </nav>
+      <div class="mprev" aria-hidden="true"><div class="mprev-im" id="mprev"></div><span class="mprev-tag" id="mprev-tag">3 cases de 2026</span></div>
+      <div class="mfoot">
+        <div><b>Fale</b><a href="https://wa.me/5581997539964" target="_blank" rel="noopener">WhatsApp +55 81 99753-9964</a><span>Praça de Casa Forte, 426, Recife</span></div>
+        <div><b>Siga</b><a href="https://www.instagram.com/leanagencybr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@leanagencybr" target="_blank" rel="noopener">YouTube</a></div>
+      </div>
+      <svg class="logo mlogo" viewBox="0 0 253 101" aria-hidden="true"><use href="#lean"/></svg>
+    </div>
+  </div>
+</div>
+
+<main id="inicio">
+  <section class="hero band" aria-label="Resultados em destaque">
+    <div class="media">
+      <div class="bg on" style="background-image:url(https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg)"></div>
+      <div class="bg" style="background-image:url(https://i.ytimg.com/vi/L9JB22cZohc/maxresdefault.jpg)"></div>
+      <div class="bg" style="background-image:url(https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg)"></div>
+      <div class="grain"></div>
+    </div>
+    <div class="wrap">
+      <div class="labels t"><span>The Lean Way</span><span>Return Over Creativity</span></div>
+      <p class="stat" aria-live="polite">
+        <span class="pre"><span class="in" id="s-pre">Aumento de</span></span>
+        <span class="num"><span class="in" id="s-num">674%</span></span>
+        <span class="post"><span class="in" id="s-post">no alcance das publicações</span></span>
+      </p>
+      <div class="hero-ctrl">
+        <div class="bars" role="group" aria-label="Escolher case">
+          <button type="button" id="b0" aria-pressed="true" data-i="0"><span class="tr"><i></i></span><span>Becker</span></button>
+          <button type="button" id="b1" aria-pressed="false" data-i="1"><span class="tr"><i></i></span><span>Camarada Camarão</span></button>
+          <button type="button" id="b2" aria-pressed="false" data-i="2"><span class="tr"><i></i></span><span>Tintas Iquine</span></button>
+        </div>
+        <div class="labels"><span id="s-camp">Cuida! Usa Becker</span><span id="s-client">Becker</span></div>
+      </div>
+      <svg class="logo big-logo" viewBox="0 0 253 101" role="img" aria-label="LEAN"><use href="#lean"/></svg>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="row">
+      <span>Dados <svg><use href="#plus"/></svg> Criatividade <svg><use href="#plus"/></svg> Método <svg><use href="#plus"/></svg> De Recife para o Brasil <svg><use href="#plus"/></svg></span>
+      <span>Dados <svg><use href="#plus"/></svg> Criatividade <svg><use href="#plus"/></svg> Método <svg><use href="#plus"/></svg> De Recife para o Brasil <svg><use href="#plus"/></svg></span>
+    </div>
+  </div>
+
+  <section class="statement band" id="sobre">
+    <div class="wrap">
+      <span class="tag">Somos a Lean</span>
+      <p class="say" id="say">Uma agência full-service, independente, com sede em Recife <span class="pic" style="background-image:url(https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg)"></span> e atuação nacional. A gente acredita que criatividade boa <em>se prova</em> em números: alcance, retenção, venda. Por isso, cada ideia nasce com objetivo claro <span class="pic" style="background-image:url(https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg)"></span> e KPI bem definido.</p>
+      <div class="pillars">
+        <div><b>Dados</b><span>Mindset data-driven, do briefing ao relatório.</span></div>
+        <div><b>Criatividade</b><span>Ideias com sensibilidade cultural, feitas para circular.</span></div>
+        <div><b>Método</b><span>Estratégias testadas, aplicadas e validadas.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mani" id="manifesto" aria-label="Return Over Creativity">
+    <div class="inner">
+      <div class="labels"><span>Manifesto</span><span>Dados, criatividade e método</span></div>
+      <div class="track" id="track" aria-hidden="true">
+        <span>Return</span><span class="ph" style="background-image:url(https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg)"></span>
+        <span>Over</span><span class="ph w" style="background-image:url(https://i.ytimg.com/vi/L9JB22cZohc/maxresdefault.jpg)"></span>
+        <span>Creativity</span><span class="ph" style="background-image:url(https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg)"></span>
+        <svg class="lg" viewBox="0 0 253 101"><use href="#lean"/></svg>
+      </div>
+      <p class="sr">Return Over Creativity: o retorno é o que prova a criatividade.</p>
+      <div class="note"><span>O retorno é o que prova a criatividade.</span><span>The Lean Way</span></div>
+    </div>
+  </section>
+
+  <section class="cases band" id="cases">
+    <div class="wrap">
+      <div class="sec-head"><span class="tag">Cases 2026</span><h2>O número fala.</h2><p>Três campanhas de 2026 e o resultado que cada uma entregou.</p></div>
+      <div class="stack">
+        <article class="card">
+          <div class="pic" data-cursor="Assistir" data-yt="jg1-Pv4Xxmc" data-title="Becker com Priscila Senna: Cuida, Usa Becker!"><div class="im" style="background-image:url(https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg)"></div><button class="play" type="button" data-yt="jg1-Pv4Xxmc" data-title="Becker com Priscila Senna: Cuida, Usa Becker!"><svg><use href="#play"/></svg>Assistir ao filme</button></div>
+          <div class="txt">
+            <div class="meta"><span>Becker</span><span>com Priscila Senna · 2026</span></div>
+            <div><span class="kick">Cuida! Usa Becker</span><h3>Becker</h3></div>
+            <div class="res"><span class="p">Aumento de</span><span class="n">674%</span><span class="l">no alcance das publicações</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="pic" data-cursor="Assistir" data-yt="L9JB22cZohc" data-title="Sérgio Mallandro no Happy Hour do Camarada Camarão"><div class="im" style="background-image:url(https://i.ytimg.com/vi/L9JB22cZohc/maxresdefault.jpg)"></div><button class="play" type="button" data-yt="L9JB22cZohc" data-title="Sérgio Mallandro no Happy Hour do Camarada Camarão"><svg><use href="#play"/></svg>Assistir ao filme</button></div>
+          <div class="txt">
+            <div class="meta"><span>Camarada Camarão</span><span>com Sérgio Mallandro · 2026</span></div>
+            <div><span class="kick">Hora Camarada</span><h3>Camarada Camarão</h3></div>
+            <div class="res"><span class="p">Mais de</span><span class="n">70%</span><span class="l">na taxa de retenção</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="pic" data-cursor="Assistir" data-yt="gdpjLZMVxks" data-title="Pintando o Brasil, Tintas Iquine na Copa do Mundo"><div class="im" style="background-image:url(https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg)"></div><button class="play" type="button" data-yt="gdpjLZMVxks" data-title="Pintando o Brasil, Tintas Iquine na Copa do Mundo"><svg><use href="#play"/></svg>Assistir ao filme</button></div>
+          <div class="txt">
+            <div class="meta"><span>Tintas Iquine</span><span>Copa do Mundo · 2026</span></div>
+            <div><span class="kick">Pintando o Brasil</span><h3>Tintas Iquine</h3></div>
+            <div class="res"><span class="p">Média de</span><span class="n">83%</span><span class="l">na taxa de retenção</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="films band" id="filmes">
+    <div class="wrap">
+      <div class="sec-head"><span class="tag">Portfólio</span><h2>Filmes</h2><p>Campanhas, eventos e bastidores, direto do canal da Lean. Clique para assistir sem sair do site.</p></div>
+      <div class="chips" role="group" aria-label="Filtrar filmes">
+        <button type="button" id="c-todos" data-f="todos" aria-pressed="true">Todos <sup>15</sup></button>
+        <button type="button" id="c-camp" data-f="campanha" aria-pressed="false">Campanhas <sup>7</sup></button>
+        <button type="button" id="c-ev" data-f="evento" aria-pressed="false">Eventos <sup>3</sup></button>
+        <button type="button" id="c-bt" data-f="bastidor" aria-pressed="false">Bastidores <sup>3</sup></button>
+        <button type="button" id="c-pod" data-f="podcast" aria-pressed="false">Podcast <sup>2</sup></button>
+      </div>
+      <div class="fgrid" id="fgrid">
+        <button class="film" type="button" data-cat="campanha" data-yt="1F8HQs8I3Wo" data-title="A porta dos desesperados por diversão, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/1F8HQs8I3Wo/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>A porta dos desesperados por diversão</b><span>Betnacional · 2025</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="cKkfgfKd-ac" data-title="Jogo Limpo com Galvão e Tino, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/cKkfgfKd-ac/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Jogo Limpo com Galvão e Tino</b><span>Betnacional · 2025</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="zCRxs65NsqQ" data-title="Profetize, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/zCRxs65NsqQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Profetize</b><span>Betnacional · 2025</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="NsOtfeMiFL0" data-title="Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Vencedor</b><span>Betnacional · 2025</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="Hv26AEFlpNQ" data-title="Formiga: a minha cor, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Hv26AEFlpNQ/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Formiga: a minha cor</b><span>Pagbet · 2024</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="SjIpamcAHPY" data-title="Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/SjIpamcAHPY/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Cuida! Usa Becker</b><span>Becker · 2024</span></span></button>
+        <button class="film" type="button" data-cat="campanha" data-yt="ncCwSsCWpVg" data-title="Sr. Adalberto é acordado por Totoro, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ncCwSsCWpVg/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Sr. Adalberto é acordado por Totoro</b><span>Pagbet · 2023</span></span></button>
+        <button class="film" type="button" data-cat="evento" data-yt="4Y6knWRTHIM" data-title="Superbowl Pernambucano com Priscila Senna, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/4Y6knWRTHIM/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Superbowl Pernambucano com Priscila Senna</b><span>Betnacional · 2024</span></span></button>
+        <button class="film" type="button" data-cat="evento" data-yt="hOWKVE6pxsU" data-title="Tardezinha, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/hOWKVE6pxsU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Tardezinha</b><span>Betnacional · 2024</span></span></button>
+        <button class="film" type="button" data-cat="evento" data-yt="Enj0Ono4qjI" data-title="Feira BIS 2024, NSX Group" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/Enj0Ono4qjI/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Feira BIS 2024</b><span>NSX Group · 2024</span></span></button>
+        <button class="film" type="button" data-cat="bastidor" data-yt="ilFdufwDbtU" data-title="Making of: Vencedor, Betnacional" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/ilFdufwDbtU/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Vencedor</b><span>Betnacional · 2025</span></span></button>
+        <button class="film" type="button" data-cat="bastidor" data-yt="jaz3s2t3Pr4" data-title="Making of: Cuida! Usa Becker, Becker" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/jaz3s2t3Pr4/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Cuida! Usa Becker</b><span>Becker · 2024</span></span></button>
+        <button class="film" type="button" data-cat="bastidor" data-yt="C_-7Du8yS3U" data-title="Making of: Paulinho Gogó, Pagbet" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/C_-7Du8yS3U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Making of: Paulinho Gogó</b><span>Pagbet · 2025</span></span></button>
+        <button class="film" type="button" data-cat="podcast" data-yt="9lqY1gG_dWc" data-title="Lean Podcast #2: Cannes Lions 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/9lqY1gG_dWc/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #2: Cannes Lions 2025</b><span>Lean Podcast · 2025</span></span></button>
+        <button class="film" type="button" data-cat="podcast" data-yt="unFide4Ag4U" data-title="Lean Podcast #1: SXSW 2025, Lean Podcast" data-cursor="Assistir"><span class="th"><img src="https://i.ytimg.com/vi/unFide4Ag4U/maxresdefault.jpg" alt="" loading="lazy"></span><span class="ft"><b>Lean Podcast #1: SXSW 2025</b><span>Lean Podcast · 2025</span></span></button>
+      </div>
+      <a class="more" href="https://www.youtube.com/@leanagencybr/videos" target="_blank" rel="noopener">Ver todos os vídeos no canal da Lean <svg><use href="#arr"/></svg></a>
+    </div>
+  </section>
+
+  <section class="clients band" id="clientes">
+    <div class="wrap">
+      <div class="sec-head"><span class="tag">Quem confia</span><h2>Clientes</h2><p>Marcas de esporte, varejo, consumo e causas sociais que trabalham com a Lean.</p></div>
+      <div class="cgrid">
+        <div>Betnacional</div>
+        <div>Becker</div>
+        <div>Maxplural</div>
+        <div>Bueno</div>
+        <div>ZRO</div>
+        <div>Instituto Vini Jr.</div>
+        <div>Camarada Camarão</div>
+        <div>Como Registrar</div>
+        <div>Naturemix</div>
+        <div>América</div>
+        <div>Cast FC</div>
+        <div>Movicidade</div>
+        <div>Fenix</div>
+        <div>Pagbet</div>
+        <div>Oculum</div>
+        <div>Tintas Iquine</div>
+      </div>
+      <div class="seals"><b>Credenciais</b><span>CENP</span><span>Sinapro</span><span>IAB Brasil</span><span>Facebook Blueprint, Media Buying Professional</span></div>
+    </div>
+  </section>
+
+  <section class="services band" id="servicos">
+    <div class="wrap">
+      <div class="sec-head"><span class="tag">Full-service</span><h2>Serviços</h2><p>Da marca à mídia, com o mesmo time olhando para o mesmo número.</p></div>
+      <ul class="svc">
+        <li><span class="k">Estratégia</span><h3>Marca</h3><p>Posicionamento, naming e identidade visual.</p></li>
+        <li><span class="k">Distribuição</span><h3>Mídia</h3><p>Planejamento e compra de mídia on e off, do digital ao DOOH.</p></li>
+        <li><span class="k">Produção</span><h3>Conteúdo</h3><p>Campanhas, filmes e conteúdo para redes.</p></li>
+        <li><span class="k">Creators</span><h3>Influenciadores</h3><p>Curadoria, gestão e mensuração de creators.</p></li>
+        <li><span class="k">Ativação</span><h3>Promo</h3><p>Ativações e promoções que geram dados de verdade.</p></li>
+        <li><span class="k">Esporte e cultura</span><h3>Patrocínios</h3><p>Patrocínios com retorno mensurado.</p></li>
+        <li><span class="k">Impacto</span><h3>ESG</h3><p>Causas com estratégia, ação e prova.</p></li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section class="contact band" id="contato">
+    <div class="wrap">
+      <div>
+        <h2>Vamos <em>conversar?</em></h2>
+        <dl class="info">
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/5581997539964" target="_blank" rel="noopener">+55 81 99753-9964</a></dd></div>
+          <div><dt>Telefone</dt><dd>+55 81 99228-0466</dd></div>
+          <div><dt>Endereço</dt><dd>Praça de Casa Forte, 426, 4º andar<br>Casa Forte, Recife, PE, 52061-420</dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/leanagencybr/" target="_blank" rel="noopener">@leanagencybr</a></dd></div>
+        </dl>
+      </div>
+      <form name="contato" method="POST" action="/obrigado/" data-netlify="true" netlify-honeypot="bot" id="form">
+        <input type="hidden" name="form-name" value="contato">
+        <p hidden><label>Não preencha <input name="bot"></label></p>
+        <div class="f2">
+          <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome"></label>
+          <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com"></label>
+        </div>
+        <div class="f2">
+          <label for="f-tel">Telefone<input id="f-tel" name="telefone" type="tel" autocomplete="tel" required placeholder="(81) 9 0000-0000"></label>
+          <label for="f-assunto">Assunto
+            <select id="f-assunto" name="assunto">
+              <option>Quero ser cliente</option>
+              <option>Quero ser fornecedor</option>
+              <option>Quero ser colaborador</option>
+              <option>Outros assuntos</option>
+            </select>
+          </label>
+        </div>
+        <label for="f-msg">Mensagem<textarea id="f-msg" name="mensagem" required placeholder="Conte para a gente o seu desafio"></textarea></label>
+        <button class="send" type="submit">Enviar mensagem <svg><use href="#arr"/></svg></button>
+        <p class="msg" id="f-msg-out" role="status"></p>
+        <a class="wa" href="https://wa.me/5581997539964" target="_blank" rel="noopener">Prefere o WhatsApp? Fale direto com a gente <svg width="14" height="14"><use href="#arr"/></svg></a>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot band">
+  <div class="wrap">
+    <div class="labels"><span>The Lean Way</span><span>Return Over Creativity</span></div>
+    <div class="cols">
+      <div><b>Lean Agency</b>Dados, criatividade e método.<br>De Recife para o Brasil.</div>
+      <div><b>Navegue</b><a href="#cases">Cases</a><a href="#filmes">Filmes</a><a href="#clientes">Clientes</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></div>
+      <div><b>Fale</b><a href="https://wa.me/5581997539964" target="_blank" rel="noopener">WhatsApp</a><a href="#contato">Formulário</a></div>
+      <div><b>Siga</b><a href="https://www.instagram.com/leanagencybr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@leanagencybr" target="_blank" rel="noopener">YouTube</a></div>
+    </div>
+    <svg class="logo" id="foot-logo" viewBox="0 0 253 101" role="img" aria-label="LEAN"><use href="#lean"/></svg>
+    <div class="end"><span>© 2026 Lean Agency. Todos os direitos reservados.</span><span>Praça de Casa Forte, 426, Recife, PE</span></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-t" hidden>
+  <div class="box">
+    <div class="bar"><span id="modal-t">Filme</span><button class="close" id="modal-x" type="button">Fechar <svg width="14" height="14"><use href="#plus"/></svg></button></div>
+    <div class="fr" id="modal-fr"></div>
+  </div>
+</div>
+
+<script>document.documentElement.classList.add('js');</script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/lenis.min.js"></script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var desk = window.matchMedia("(min-width: 900px)").matches;
+  var hasG = !!window.gsap;
+  if (still) root.classList.add("still");
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+  function reveal(el) { if (el) el.style.transform = "none"; }
+
+  /* Smooth scroll */
+  var lenis = null;
+  if (hasG && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  if (!still && window.Lenis) {
+    lenis = new Lenis({ lerp: 0.09 });
+    if (hasG && window.ScrollTrigger) { lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(function (t) { lenis.raf(t * 1000); }); gsap.ticker.lagSmoothing(0); }
+    else { (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(); }
+  }
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href"); var t = id.length > 1 && document.querySelector(id);
+      if (!t) return; e.preventDefault(); if (lenis) lenis.start();
+      if (lenis) lenis.scrollTo(t, { offset: 0, duration: 1.4 }); else t.scrollIntoView({ behavior: still ? "auto" : "smooth" });
+    });
+  });
+
+  /* Hero: troca de cases */
+  var data = [
+    { pre: "Aumento de", num: 674, post: "no alcance das publicações", camp: "Cuida! Usa Becker", client: "Becker" },
+    { pre: "Mais de", num: 70, post: "na taxa de retenção", camp: "Hora Camarada", client: "Camarada Camarão" },
+    { pre: "Média de", num: 83, post: "na taxa de retenção", camp: "Pintando o Brasil", client: "Tintas Iquine" }
+  ];
+  var bgs = $$(".hero .bg"), bars = $$(".bars button"), cur = 0, timer = null;
+  function setText(i) {
+    var d = data[i];
+    $("#s-pre").textContent = d.pre; $("#s-post").textContent = d.post;
+    $("#s-camp").textContent = d.camp; $("#s-client").textContent = d.client;
+    var n = $("#s-num");
+    if (hasG && !still) { var o = { v: 0 }; gsap.to(o, { v: d.num, duration: 1.1, ease: "power3.out", onUpdate: function () { n.textContent = Math.round(o.v) + "%"; } }); }
+    else n.textContent = d.num + "%";
+  }
+  function show(i, animate) {
+    cur = i;
+    bgs.forEach(function (b, k) { b.classList.toggle("on", k === i); });
+    bars.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); b.classList.toggle("done", k < i); });
+    if (animate && hasG && !still) {
+      var parts = $$(".stat .in");
+      gsap.to(parts, { yPercent: -105, duration: .45, ease: "power3.in", stagger: .04, onComplete: function () {
+        setText(i); gsap.fromTo(parts, { yPercent: 105 }, { yPercent: 0, duration: .8, ease: "power3.out", stagger: .06 });
+      } });
+    } else setText(i);
+  }
+  function auto() { if (still) return; clearTimeout(timer); timer = setTimeout(function () { show((cur + 1) % data.length, true); auto(); }, 6000); }
+  bars.forEach(function (b) { b.addEventListener("click", function () { show(+b.dataset.i, true); auto(); }); });
+
+  /* Preloader */
+  var seen = false; try { seen = sessionStorage.getItem("lean-seen") === "1"; sessionStorage.setItem("lean-seen", "1"); } catch (e) {}
+  function intro() {
+    if (!hasG || still) { auto(); return; }
+    var tl = gsap.timeline({ onComplete: auto });
+    tl.from(".hero .bg.on", { scale: 1.35, duration: 2.2, ease: "power3.out" }, 0)
+      .from(".stat .in", { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: .08 }, .15)
+      .from(".hero .big-logo", { yPercent: 40, opacity: 0, duration: 1.3, ease: "power4.out" }, .25)
+      .from(".hero-ctrl, .hero .labels.t, .top", { opacity: 0, y: 16, duration: .8, stagger: .08 }, .5);
+  }
+  if (hasG && !still && !seen) {
+    root.classList.add("js-load");
+    var o = { v: 0 }, c = $("#cnt"), lb = $("#lbar");
+    gsap.timeline({ onComplete: function () { root.classList.remove("js-load"); intro(); } })
+      .to(o, { v: 674, duration: 1.6, ease: "power2.inOut", onUpdate: function () { c.textContent = String(Math.round(o.v)).padStart(3, "0"); lb.style.transform = "scaleX(" + (o.v / 674) + ")"; } })
+      .to("#loader", { yPercent: -100, duration: .9, ease: "power4.inOut" }, "+=.15");
+  } else intro();
+
+  if (hasG && window.ScrollTrigger && !still) {
+    /* LEAN do hero sobe no scroll */
+    gsap.to(".hero .big-logo", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero .media", { yPercent: 18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    /* Texto que acende palavra por palavra */
+    var say = $("#say");
+    (function split(el) {
+      var nodes = Array.prototype.slice.call(el.childNodes);
+      nodes.forEach(function (nd) {
+        if (nd.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          nd.textContent.split(/(\s+)/).forEach(function (w) {
+            if (!w) return;
+            if (/^\s+$/.test(w)) frag.appendChild(document.createTextNode(w));
+            else { var s = document.createElement("span"); s.className = "w"; s.textContent = w; frag.appendChild(s); }
+          });
+          el.replaceChild(frag, nd);
+        } else if (nd.nodeType === 1 && nd.tagName === "EM") { nd.classList.add("w"); }
+        else if (nd.nodeType === 1) { nd.classList.add("w"); }
+      });
+    })(say);
+    gsap.fromTo($$(".w", say), { opacity: .14 }, { opacity: 1, stagger: .05, ease: "none", scrollTrigger: { trigger: say, start: "top 78%", end: "bottom 45%", scrub: true } });
+    gsap.from(".pillars div", { y: 40, opacity: 0, duration: 1, stagger: .12, ease: "power3.out", scrollTrigger: { trigger: ".pillars", start: "top 85%" } });
+
+    /* Manifesto correndo de lado */
+    var mm = gsap.matchMedia();
+    mm.add("(min-width: 900px)", function () {
+      var tr = $("#track");
+      gsap.to(tr, { x: function () { return -(tr.scrollWidth - window.innerWidth + 40); }, ease: "none",
+        scrollTrigger: { trigger: ".mani", start: "top top", end: function () { return "+=" + (tr.scrollWidth - window.innerWidth); }, pin: ".mani .inner", scrub: 1, invalidateOnRefresh: true } });
+      /* Cases empilhando */
+      var cards = $$(".card");
+      cards.forEach(function (c, i) {
+        if (i === cards.length - 1) return;
+        gsap.to(c, { scale: .92, opacity: .45, ease: "none", scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: "top 88px", scrub: true } });
+      });
+    });
+
+    /* Títulos de seção sobem */
+    $$(".sec-head h2, .contact h2").forEach(function (h) {
+      gsap.from(h, { yPercent: 40, opacity: 0, duration: 1.1, ease: "power4.out", scrollTrigger: { trigger: h, start: "top 88%" } });
+    });
+    gsap.from(".film:not([hidden])", { y: 60, opacity: 0, duration: 1, stagger: .07, ease: "power3.out", scrollTrigger: { trigger: ".fgrid", start: "top 82%" } });
+    gsap.from(".cgrid div", { opacity: 0, duration: .6, stagger: .03, scrollTrigger: { trigger: ".cgrid", start: "top 85%" } });
+  }
+
+  /* Cursor */
+  var cu = $("#cursor"), ct = $("#cursor-t");
+  if (window.matchMedia("(pointer: fine)").matches && !still) {
+    root.classList.add("has-cursor");
+    var x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y;
+    addEventListener("mousemove", function (e) { x = e.clientX; y = e.clientY; });
+    (function loop() { cx += (x - cx) * .2; cy += (y - cy) * .2; cu.style.transform = "translate(" + cx + "px," + cy + "px)"; requestAnimationFrame(loop); })();
+    $$("[data-cursor]").forEach(function (el) {
+      el.addEventListener("mouseenter", function () { ct.textContent = el.dataset.cursor; cu.classList.add("big"); });
+      el.addEventListener("mouseleave", function () { cu.classList.remove("big"); });
+    });
+  }
+
+  /* Vídeos */
+  var modal = $("#modal"), fr = $("#modal-fr"), last = null;
+  function openV(id, title) {
+    last = document.activeElement;
+    $("#modal-t").textContent = title || "Filme";
+    fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="' + (title || "Filme") + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    modal.hidden = false; if (lenis) lenis.stop(); $("#modal-x").focus();
+  }
+  function closeV() { fr.innerHTML = ""; modal.hidden = true; if (lenis) lenis.start(); if (last) last.focus(); }
+  $$("[data-yt]").forEach(function (el) {
+    el.addEventListener("click", function (e) { e.stopPropagation(); openV(el.dataset.yt, el.dataset.title); });
+  });
+  $("#modal-x").addEventListener("click", closeV);
+  modal.addEventListener("click", function (e) { if (e.target === modal) closeV(); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape" && !modal.hidden) closeV(); });
+
+  /* Barra do topo: fundo ao rolar, some ao descer e volta ao subir */
+  var top = $(".top"), lastY = 0;
+  function onScroll(y) {
+    top.classList.toggle("scrolled", y > 40);
+    top.classList.toggle("hide", y > lastY && y > 400 && !root.classList.contains("menu-open"));
+    lastY = y;
+  }
+  if (lenis) lenis.on("scroll", function (e) { onScroll(e.scroll); });
+  else addEventListener("scroll", function () { onScroll(scrollY); }, { passive: true });
+  onScroll(scrollY);
+
+  /* Relógio de Recife */
+  var clock = $("#clock");
+  function tick() { try { clock.textContent = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Recife" }).format(new Date()); } catch (e) {} }
+  tick(); setInterval(tick, 15000);
+
+  /* Menu */
+  var menu = $("#menu"), mbtn = $("#menu-btn"), mprev = $("#mprev"), mlast = null;
+  var mlinks = $$(".mlist a");
+  var mtag = $("#mprev-tag");
+  function setPrev(a) { if (a && mprev) { mprev.style.backgroundImage = "url(" + a.dataset.img + ")"; if (mtag) mtag.textContent = a.querySelector("em").textContent; } }
+  setPrev(mlinks[0]);
+  function openMenu() {
+    mlast = document.activeElement; menu.hidden = false; void menu.offsetWidth;
+    menu.classList.add("open"); root.classList.add("menu-open"); mbtn.setAttribute("aria-expanded", "true");
+    mbtn.querySelector(".mb-t").textContent = "Fechar"; if (lenis) lenis.stop(); document.body.style.overflow = "hidden";
+    setTimeout(function () { mlinks[0].focus({ preventScroll: true }); }, 50);
+  }
+  function closeMenu(go) {
+    menu.classList.remove("open"); root.classList.remove("menu-open"); mbtn.setAttribute("aria-expanded", "false");
+    mbtn.querySelector(".mb-t").textContent = "Menu"; document.body.style.overflow = ""; if (lenis) lenis.start();
+    setTimeout(function () { if (!menu.classList.contains("open")) menu.hidden = true; }, still ? 0 : 800);
+    if (!go && mlast) mlast.focus();
+  }
+  mbtn.addEventListener("click", function () { menu.classList.contains("open") ? closeMenu() : openMenu(); });
+  mlinks.forEach(function (a) {
+    a.addEventListener("mouseenter", function () { setPrev(a); });
+    a.addEventListener("focus", function () { setPrev(a); });
+    a.addEventListener("click", function () { closeMenu(true); });
+  });
+  $$(".mfoot a").forEach(function (a) { if (a.getAttribute("href").charAt(0) === "#") a.addEventListener("click", function () { closeMenu(true); }); });
+  addEventListener("keydown", function (e) {
+    if (!menu.classList.contains("open")) return;
+    if (e.key === "Escape") closeMenu();
+    if (e.key === "Tab") {
+      var f = [mbtn].concat($$("a", menu)); var i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+
+  /* Filtro de filmes */
+  var films = $$(".film"), chips = $$(".chips button");
+  function filt(f) {
+    var first = true;
+    films.forEach(function (el) {
+      var on = f === "todos" || el.dataset.cat === f; el.hidden = !on;
+      el.classList.toggle("feat", on && first && f !== "podcast"); if (on) first = false;
+    });
+    chips.forEach(function (c) { c.setAttribute("aria-pressed", c.dataset.f === f ? "true" : "false"); });
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+  chips.forEach(function (c) { c.addEventListener("click", function () { filt(c.dataset.f); }); });
+  filt("todos");
+
+  /* Formulário (Netlify Forms) */
+  var form = $("#form"), out = $("#f-msg-out");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { out.textContent = "Preencha nome, e-mail, telefone e mensagem para enviar."; form.reportValidity(); return; }
+    var body = new URLSearchParams(new FormData(form)).toString();
+    out.textContent = "Enviando...";
+    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); form.reset(); out.textContent = "Mensagem enviada. A Lean vai entrar em contato com você."; })
+      .catch(function () { out.textContent = "Não foi possível enviar agora. Tente de novo ou fale pelo WhatsApp."; });
+  });
+})();
+</script>
+</body>
+</html>
