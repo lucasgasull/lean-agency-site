@@ -6,9 +6,18 @@
 <title>Lean Agency | Dados, criatividade e método</title>
 <meta name="description" content="Agência independente com sede em Recife e atuação nacional. Full-service: marca, mídia, conteúdo, influenciadores, promo, patrocínios e ESG.">
 <meta name="theme-color" content="#0a0a0a">
-<meta property="og:title" content="Lean Agency">
-<meta property="og:description" content="Return Over Creativity. Dados, criatividade e método, de Recife para o Brasil.">
-<meta property="og:image" content="https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lean Agency">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://lean-agency.netlify.app/">
+<meta property="og:title" content="Lean Agency | Dados, criatividade e método">
+<meta property="og:description" content="Agência independente de Recife com atuação nacional. Campanhas para Betnacional, Becker, Tintas Iquine e Camarada Camarão.">
+<meta property="og:image" content="https://lean-agency.netlify.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LEAN. The Lean Way, Return Over Creativity. Dados, criatividade e método.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lean-agency.netlify.app/og.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23cff200'/%3E%3Cpath d='M18 12h9v32h17v8H18z' fill='%230a0a0a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -229,12 +238,38 @@ img { max-width: 100%; display: block; }
 @media (max-width: 900px) { .film, .film.feat { grid-column: span 12; grid-row: auto; } .film.feat .th { aspect-ratio: 16 / 9; height: auto; min-height: 0; } }
 @media (min-width: 560px) and (max-width: 900px) { .film { grid-column: span 6; } }
 
+/* Números */
+.numbers { padding-block: clamp(64px, 8vw, 112px); border-top: 1px solid var(--line); }
+.numbers .labels { color: var(--lime); margin-bottom: clamp(32px, 4vw, 56px); }
+.ngrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.ngrid div { display: grid; gap: 14px; align-content: start; padding-right: 24px; border-left: 1px solid var(--line); padding-left: 20px; }
+.ngrid div:first-child { border-left: 0; padding-left: 0; }
+.ngrid b { font-weight: 300; font-size: clamp(64px, 7.4vw, 120px); line-height: .85; letter-spacing: -0.06em; color: var(--lime); font-variant-numeric: tabular-nums; }
+.ngrid span { color: var(--mute); font-size: 15px; max-width: 26ch; }
+@media (max-width: 900px) { .ngrid { grid-template-columns: 1fr 1fr; gap: 40px 0; } .ngrid div:nth-child(3) { border-left: 0; padding-left: 0; } }
+@media (max-width: 480px) { .ngrid { grid-template-columns: 1fr; } .ngrid div { border-left: 0; padding-left: 0; } }
+
+/* Reconhecimento */
+.recog { padding-block: clamp(96px, 12vw, 160px) 0; }
+.rlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.rlist li { display: grid; grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); transition: padding .4s var(--ease); }
+.rlist li:hover { padding-left: 12px; }
+.rlist .y { color: var(--mute); font-size: 13px; font-variant-numeric: tabular-nums; }
+.rlist b { font-weight: 400; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.035em; line-height: 1.05; }
+.rlist li:hover b { color: var(--lime); }
+.rlist .d { color: var(--mute); font-size: 15px; }
+@media (max-width: 900px) { .rlist li { grid-template-columns: 1fr; gap: 6px; } }
+
 /* Clientes */
 .clients { background: var(--paper); color: var(--ink); padding-block: clamp(96px, 12vw, 160px); }
 .clients .sec-head .tag, .clients .sec-head p { color: var(--mute-ink); }
 .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--line-light); }
 .cgrid div { border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 16px; text-align: center; font-size: clamp(20px, 1.8vw, 28px); letter-spacing: -0.03em; transition: background .3s, color .3s; position: relative; }
 .cgrid div:hover { background: var(--ink); color: var(--lime); }
+.cgrid .you { border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--lime); color: var(--ink); text-decoration: none; font-size: clamp(18px, 1.5vw, 22px); letter-spacing: -0.02em; transition: background .3s, color .3s; }
+.cgrid .you:hover { background: var(--ink); color: var(--lime); }
+.cgrid .lg img { max-width: 62%; max-height: 46%; width: auto; height: auto; object-fit: contain; filter: brightness(0); transition: filter .3s, transform .5s var(--ease); }
+.cgrid .lg:hover img { filter: none; transform: scale(1.06); }
 .creds { margin-top: clamp(64px, 8vw, 112px); display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
 .creds-h { display: grid; gap: 12px; align-content: start; }
 .creds-h .tag { color: var(--mute-ink); }
@@ -353,7 +388,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
       <nav class="mlist" aria-label="Menu principal">
         <a href="#cases" data-img="https://i.ytimg.com/vi/jg1-Pv4Xxmc/maxresdefault.jpg"><small>01</small><span class="lt">Cases</span><em>3 cases de 2026</em></a>
         <a href="#filmes" data-img="https://i.ytimg.com/vi/gdpjLZMVxks/maxresdefault.jpg"><small>02</small><span class="lt">Filmes</span><em>15 filmes</em></a>
-        <a href="#clientes" data-img="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg"><small>03</small><span class="lt">Clientes</span><em>16 marcas</em></a>
+        <a href="#clientes" data-img="https://i.ytimg.com/vi/NsOtfeMiFL0/maxresdefault.jpg"><small>03</small><span class="lt">Clientes</span><em>17 marcas</em></a>
         <a href="#servicos" data-img="https://i.ytimg.com/vi/4Y6knWRTHIM/maxresdefault.jpg"><small>04</small><span class="lt">Serviços</span><em>7 frentes</em></a>
         <a href="#contato" data-img="https://i.ytimg.com/vi/L9JB22cZohc/maxresdefault.jpg"><small>05</small><span class="lt">Contato</span><em>Recife, PE</em></a>
       </nav>
@@ -413,6 +448,18 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
     </div>
   </section>
 
+  <section class="numbers band" id="numeros" aria-label="A Lean em números">
+    <div class="wrap">
+      <div class="labels"><span>A Lean em números</span><span>Desde 2019</span></div>
+      <div class="ngrid">
+        <div><b data-to="2019">2019</b><span>Fundada em Recife, com atuação nacional.</span></div>
+        <div><b data-to="23">23</b><span>prêmios: 12 no Festival Cria PE e 11 nos Prémios Lusófonos da Criatividade.</span></div>
+        <div><b data-to="31">31</b><span>indicações no Festival Cria PE 2025.</span></div>
+        <div><b>1º</b><span>unicórnio das bets do Brasil: a marca Betnacional, construída com a Lean.</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="mani" id="manifesto" aria-label="Return Over Creativity">
     <div class="inner">
       <div class="labels"><span>Manifesto</span><span>Dados, criatividade e método</span></div>
@@ -459,6 +506,22 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
     </div>
   </section>
 
+  <section class="recog band" id="reconhecimento">
+    <div class="wrap">
+      <div class="sec-head"><span class="tag">Reconhecimento</span><h2>Onde a Lean esteve.</h2><p>Prêmios, júris e palcos que colocam a agência na conversa do mercado.</p></div>
+      <ul class="rlist">
+        <li><span class="y">2025</span><b>Prémios Lusófonos da Criatividade</b><span class="d">11 prêmios: 1 ouro, 6 pratas e 4 bronzes</span></li>
+        <li><span class="y">2025</span><b>Effie Awards Brasil</b><span class="d">Newton Neto, chairman da Lean, no júri</span></li>
+        <li><span class="y">2025</span><b>4º Fórum Máquina do Esporte</b><span class="d">Anselmo Albuquerque, CEO, apresenta "A construção de marca do 1º unicórnio das bets"</span></li>
+        <li><span class="y">2025</span><b>Cannes Lions</b><span class="d">Cobertura do festival no Lean Podcast</span></li>
+        <li><span class="y">2025</span><b>SXSW</b><span class="d">Presença em Austin e cobertura no Lean Podcast</span></li>
+        <li><span class="y">2025</span><b>CCXP</b><span class="d">A convite da Omelete, análise das ativações que transformam fãs em embaixadores</span></li>
+        <li><span class="y">2025</span><b>Confut Nordeste</b><span class="d">Palestra sobre patrocínios inteligentes na maior conferência de futebol do Brasil</span></li>
+        <li><span class="y">2024</span><b>Festival Cria PE</b><span class="d">12 prêmios em diversas categorias</span></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="films band" id="filmes">
     <div class="wrap">
       <div class="sec-head"><span class="tag">Portfólio</span><h2>Filmes</h2><p>Campanhas, eventos e bastidores, direto do canal da Lean. Clique para assistir sem sair do site.</p></div>
@@ -492,24 +555,26 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
 
   <section class="clients band" id="clientes">
     <div class="wrap">
-      <div class="sec-head"><span class="tag">Quem confia</span><h2>Clientes</h2><p>Marcas de esporte, varejo, consumo e causas sociais que trabalham com a Lean.</p></div>
+      <div class="sec-head"><span class="tag">Quem confia</span><h2>Clientes</h2><p>Marcas de esporte, varejo, consumo e causas sociais que já trabalharam com a Lean.</p></div>
       <div class="cgrid">
-        <div>Betnacional</div>
-        <div>Becker</div>
-        <div>Maxplural</div>
-        <div>Bueno</div>
-        <div>ZRO</div>
-        <div>Instituto Vini Jr.</div>
-        <div>Camarada Camarão</div>
-        <div>Como Registrar</div>
-        <div>Naturemix</div>
-        <div>América</div>
-        <div>Cast FC</div>
-        <div>Movicidade</div>
-        <div>Fenix</div>
-        <div>Pagbet</div>
-        <div>Oculum</div>
-        <div>Tintas Iquine</div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Betnacional.png" alt="Betnacional" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Becker-1.png" alt="Becker" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Maxplural.png" alt="MaxPlural" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/03/Logo-Bueno@3x-e1742581505830.png" alt="Bueno Wines" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Zro.png" alt="Z.ro Bank" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/ViniJr.png" alt="Instituto Vini Jr." loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Camarada@4x.png" alt="Camarada Camarão" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Como-Registrar.png" alt="Como Registrar" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Naturemix@4x.png" alt="Naturemix" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/America@4x-1.png" alt="América Futebol Clube" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/CastFC.png" alt="Cast FC" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Movicidade.png" alt="Movicidade" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Fenix.png" alt="Fênix Consultoria Empresarial" loading="lazy" width="200" height="80"></div>
+        <div class="tx">Tintas Iquine</div>
+        <div class="tx">Pagbet</div>
+        <div class="tx">Baú do Milhão</div>
+        <div class="tx">Oculum</div>
+        <a class="you" href="#contato">Sua marca aqui <svg width="14" height="14"><use href="#arr"/></svg></a>
       </div>
       <div class="creds">
         <div class="creds-h"><span class="tag">Credenciais</span><p>O que garante que o seu investimento está em boas mãos.</p></div>
@@ -582,7 +647,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
     <div class="labels"><span>The Lean Way</span><span>Return Over Creativity</span></div>
     <div class="cols">
       <div><b>Lean Agency</b>Dados, criatividade e método.<br>De Recife para o Brasil.</div>
-      <div><b>Navegue</b><a href="#cases">Cases</a><a href="#filmes">Filmes</a><a href="#clientes">Clientes</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></div>
+      <div><b>Navegue</b><a href="#cases">Cases</a><a href="#filmes">Filmes</a><a href="#reconhecimento">Reconhecimento</a><a href="#clientes">Clientes</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></div>
       <div><b>Fale</b><a href="https://wa.me/5581997539964" target="_blank" rel="noopener">WhatsApp</a><a href="#contato">Formulário</a></div>
       <div><b>Siga</b><a href="https://www.instagram.com/leanagencybr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@leanagencybr" target="_blank" rel="noopener">YouTube</a></div>
     </div>
@@ -762,6 +827,17 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
   if (lenis) lenis.on("scroll", function (e) { onScroll(e.scroll); });
   else addEventListener("scroll", function () { onScroll(scrollY); }, { passive: true });
   onScroll(scrollY);
+
+  /* Contadores da seção de números */
+  if (hasG && window.ScrollTrigger && !still) {
+    $$(".ngrid b[data-to]").forEach(function (b) {
+      var to = +b.dataset.to, from = to > 1000 ? to - 40 : 0, o = { v: from };
+      b.textContent = from;
+      ScrollTrigger.create({ trigger: b, start: "top 88%", once: true, onEnter: function () {
+        gsap.to(o, { v: to, duration: 1.6, ease: "power3.out", onUpdate: function () { b.textContent = Math.round(o.v); } });
+      } });
+    });
+  }
 
   /* Relógio de Recife */
   var clock = $("#clock");
