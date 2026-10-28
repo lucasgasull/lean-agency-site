@@ -235,8 +235,18 @@ img { max-width: 100%; display: block; }
 .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--line-light); }
 .cgrid div { border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 16px; text-align: center; font-size: clamp(20px, 1.8vw, 28px); letter-spacing: -0.03em; transition: background .3s, color .3s; position: relative; }
 .cgrid div:hover { background: var(--ink); color: var(--lime); }
-.seals { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 32px; color: var(--mute-ink); font-size: 14px; align-items: center; }
-.seals b { font-weight: 500; color: var(--ink); }
+.creds { margin-top: clamp(64px, 8vw, 112px); display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+.creds-h { display: grid; gap: 12px; align-content: start; }
+.creds-h .tag { color: var(--mute-ink); }
+.creds-h p { margin: 0; font-size: 15px; color: var(--mute-ink); max-width: 22ch; }
+.creds-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+.creds-l li { display: grid; gap: 10px; align-content: start; padding: 20px 20px 4px 0; border-right: 1px solid var(--line-light); padding-left: 20px; }
+.creds-l li:first-child { padding-left: 0; }
+.creds-l li:last-child { border-right: 0; }
+.creds-l b { font-weight: 400; font-size: clamp(28px, 2.6vw, 40px); letter-spacing: -0.04em; line-height: 1; }
+.creds-l span { font-size: 14px; color: var(--mute-ink); line-height: 1.45; }
+@media (max-width: 1000px) { .creds { grid-template-columns: 1fr; } .creds-l { grid-template-columns: 1fr 1fr; } .creds-l li { border-right: 0; padding-left: 0; border-bottom: 1px solid var(--line-light); padding-bottom: 20px; } }
+@media (max-width: 520px) { .creds-l { grid-template-columns: 1fr; } }
 
 /* Serviços */
 .services { padding-block: clamp(96px, 12vw, 160px); }
@@ -501,7 +511,15 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
         <div>Oculum</div>
         <div>Tintas Iquine</div>
       </div>
-      <div class="seals"><b>Credenciais</b><span>CENP</span><span>Sinapro</span><span>IAB Brasil</span><span>Facebook Blueprint, Media Buying Professional</span></div>
+      <div class="creds">
+        <div class="creds-h"><span class="tag">Credenciais</span><p>O que garante que o seu investimento está em boas mãos.</p></div>
+        <ul class="creds-l">
+          <li><b>CENP</b><span>Agência certificada pelo Conselho Executivo das Normas-Padrão, que regula as boas práticas na compra de mídia no Brasil.</span></li>
+          <li><b>Sinapro-PE</b><span>Associada ao Sindicato das Agências de Propaganda de Pernambuco.</span></li>
+          <li><b>IAB Brasil</b><span>Associada ao Interactive Advertising Bureau, referência em padrões de publicidade digital.</span></li>
+          <li><b>Meta Blueprint</b><span>Time certificado como Media Buying Professional na compra de mídia em Facebook e Instagram.</span></li>
+        </ul>
+      </div>
     </div>
   </section>
 
