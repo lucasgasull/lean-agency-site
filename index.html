@@ -275,6 +275,8 @@ img { max-width: 100%; display: block; }
 .cgrid .lg img { width: 58%; height: 42%; object-fit: contain; filter: brightness(0); transition: filter .3s, transform .5s var(--ease); }
 .cgrid .lg.inv img { filter: grayscale(1) invert(1); height: 64%; }
 .cgrid .lg.inv:hover img { filter: grayscale(1); }
+.cgrid .lg.raw img { filter: grayscale(1) contrast(1.4); height: 54%; }
+.cgrid .lg.raw:hover img { filter: none; }
 .cgrid .lg:hover img { filter: none; transform: scale(1.06); }
 .creds { margin-top: clamp(64px, 8vw, 112px); display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
 .creds-h { display: grid; gap: 12px; align-content: start; }
@@ -514,15 +516,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
 
   <section class="recog band" id="reconhecimento">
     <div class="wrap">
-      <div class="sec-head"><span class="tag">Reconhecimento</span><h2>Onde a Lean esteve.</h2><p>Prêmios, júris e palcos que colocam a agência na conversa do mercado.</p></div>
+      <div class="sec-head"><span class="tag">Reconhecimento</span><h2>Prêmios e palcos.</h2><p>O que o mercado já reconheceu no trabalho da Lean.</p></div>
       <ul class="rlist">
         <li><span class="y">2026</span><b>Festival Cria PE</b><span class="d">53 shortlists com 24 peças, a 3ª agência com mais trabalhos selecionados</span></li>
         <li><span class="y">2025</span><b>Prémios Lusófonos da Criatividade</b><span class="d">11 prêmios: 1 ouro, 6 pratas e 4 bronzes</span></li>
         <li><span class="y">2025</span><b>Effie Awards Brasil</b><span class="d">Newton Neto, chairman da Lean, no júri</span></li>
-        <li><span class="y">2025</span><b>4º Fórum Máquina do Esporte</b><span class="d">Anselmo Albuquerque, CEO, apresenta "A construção de marca do 1º unicórnio das bets"</span></li>
-        <li><span class="y">2025</span><b>Cannes Lions</b><span class="d">Cobertura do festival no Lean Podcast</span></li>
-        <li><span class="y">2025</span><b>SXSW</b><span class="d">Presença em Austin e cobertura no Lean Podcast</span></li>
-        <li><span class="y">2025</span><b>CCXP</b><span class="d">A convite da Omelete, análise das ativações que transformam fãs em embaixadores</span></li>
+        <li><span class="y">2025</span><b>Fórum Máquina do Esporte</b><span class="d">Anselmo Albuquerque, CEO, apresenta "A construção de marca do 1º unicórnio das bets"</span></li>
         <li><span class="y">2025</span><b>Confut Nordeste</b><span class="d">Palestra sobre patrocínios inteligentes na maior conferência de futebol do Brasil</span></li>
         <li><span class="y">2024</span><b>Festival Cria PE</b><span class="d">12 prêmios em diversas categorias</span></li>
       </ul>
@@ -577,10 +576,10 @@ input:focus, select:focus, textarea:focus { outline: none; border-bottom: 2px so
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/CastFC.png" alt="Cast FC" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Movicidade.png" alt="Movicidade" loading="lazy" width="200" height="80"></div>
         <div class="lg"><img src="https://lean.ag/wp-content/uploads/2025/01/Fenix.png" alt="Fênix Consultoria Empresarial" loading="lazy" width="200" height="80"></div>
-        <div class="tx">Tintas Iquine</div>
-        <div class="tx">Pagbet</div>
+        <div class="lg raw"><img src="https://www.iquine.com.br/assets/img/content/logo.svg" alt="Tintas Iquine" loading="lazy" width="200" height="80"></div>
+        <div class="lg"><img src="img/clientes/pagbet.png" alt="Pagbet" loading="lazy" width="200" height="80"></div>
         <div class="tx">Baú do Milhão</div>
-        <div class="tx">Oculum</div>
+        <div class="lg"><img src="img/clientes/oculum.png" alt="Oculum" loading="lazy" width="200" height="80"></div>
         <a class="you" href="#contato">Sua marca aqui <svg width="14" height="14"><use href="#arr"/></svg></a>
       </div>
       <div class="creds">
